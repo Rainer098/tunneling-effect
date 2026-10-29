@@ -23,7 +23,7 @@ BASE = dict(
 )
 
 
-def compute(V0, a, E):
+def compute(V0: float, a: float, E: float) -> SchrodingerSolver:
     """Прогон одной симуляции и возврат готового солвера."""
     p = Params(V0=V0, a=a, E=E, **BASE)
     s = SchrodingerSolver(p, save_every=BASE["steps"])  # храним только финал
@@ -31,7 +31,7 @@ def compute(V0, a, E):
     return s
 
 
-def main():
+def main() -> None:
     fig, ax = plt.subplots(figsize=(9, 5.5))
     plt.subplots_adjust(bottom=0.32)
 

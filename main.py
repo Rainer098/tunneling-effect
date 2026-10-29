@@ -13,7 +13,7 @@ from src.solver import Params, SchrodingerSolver
 from src.visualizer import Visualizer
 
 
-def ask_params(default):
+def ask_params(default: Params) -> Params:
     """Спрашивает параметры, Enter — оставить по умолчанию."""
     values = asdict(default)
     keys = ["V0", "a", "E", "sigma", "x0", "L", "N", "dt", "steps"]
@@ -34,7 +34,7 @@ def ask_params(default):
     return Params(**values)
 
 
-def main():
+def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--ask", action="store_true",
                     help="спросить параметры с клавиатуры")

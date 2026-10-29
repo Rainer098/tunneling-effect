@@ -30,7 +30,7 @@ class SchrodingerSolver:
     Кинетика делается в k-пространстве через FFT.
     """
 
-    def __init__(self, params, save_every=10):
+    def __init__(self, params: Params, save_every: int = 10) -> None:
         self.p = params
         self.save_every = save_every
 
@@ -54,17 +54,17 @@ class SchrodingerSolver:
 
     # ---------- базовые операции ----------
 
-    def norm(self):
+    def norm(self) -> float:
         """Текущая норма ∫|ψ|² dx."""
         return float(np.sum(np.abs(self.psi) ** 2) * self.dx)
 
-    def check_norm(self, tol=1e-8):
+    def check_norm(self, tol: float = 1e-8) -> float:
         """Проверяет, что норма не уехала (инвариант унитарной эволюции)."""
         n = self.norm()
         assert abs(n - 1.0) < tol, f"норма уехала: {n}"
         return n
 
-    def step(self):
+    def step(self) -> None:
         """Один шаг по времени на dt."""
         dt = self.p.dt
         # полшага потенциала
@@ -76,7 +76,7 @@ class SchrodingerSolver:
         # ещё полшага потенциала
         self.psi = np.exp(-1j * self.V * dt / 2) * self.psi
 
-    def run(self, verbose=True):
+    def run(self, verbose: bool = True) -> None:
         """Крутит цикл по времени, попутно сохраняя |ψ|² каждые save_every шагов."""
         self.check_norm()
 
@@ -99,7 +99,7 @@ class SchrodingerSolver:
 
     # ---------- физика ----------
 
-    def balance(self):
+    def balance(self) -> tuple[float, float, float]:
         """
         T — доля вероятности справа от барьера,
         R — слева,
@@ -114,7 +114,7 @@ class SchrodingerSolver:
 
     # ---------- сохранение ----------
 
-    def save(self, out_dir="results"):
+    def save(self, out_dir: str = "results") -> None:
         """Скидывает параметры и плотности на диск через DataManager."""
         dm = DataManager(out_dir)
         dm.save_params(asdict(self.p))

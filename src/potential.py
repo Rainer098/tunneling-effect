@@ -11,14 +11,14 @@ class PotentialBarrier:
         V(x) = 0,   иначе
     """
 
-    def __init__(self, V0, a):
+    def __init__(self, V0: float, a: float) -> None:
         # отрицательная высота — это уже яма, у нас другая задача
         assert V0 >= 0, "V0 не может быть отрицательным"
         assert a > 0, "ширина барьера должна быть положительной"
         self.V0 = float(V0)
         self.a = float(a)
 
-    def value(self, x):
+    def value(self, x: FloatArray | float) -> FloatArray:
         """Возвращает массив V(x) для точек x (скаляр или np.array)."""
         x = np.asarray(x)
         return np.where((x > 0) & (x < self.a), self.V0, 0.0)

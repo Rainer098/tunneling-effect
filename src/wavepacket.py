@@ -9,13 +9,13 @@ class GaussianWavePacket:
         ψ(x,0) = (2πσ²)^(-1/4) · exp(-(x-x0)²/(4σ²) + i k0 x)
     """
 
-    def __init__(self, x0, sigma, k0):
+    def __init__(self, x0: float, sigma: float, k0: float) -> None:
         assert sigma > 0, "sigma должна быть > 0"
         self.x0 = float(x0)
         self.sigma = float(sigma)
         self.k0 = float(k0)
 
-    def initial_state(self, x, dx=None):
+    def initial_state(self, x: FloatArray, dx: float | None = None) -> ComplexArray:
         """
         Считает ψ(x,0) на сетке x.
 
